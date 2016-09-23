@@ -1,0 +1,27 @@
+equation(3)
+dMR=ksMR−λMR*MR
+
+equation(4)
+dRdt=ksR*MR−2*k2R*R2+2*k−2R*R2−λR*R
+
+equation(5)
+dR2=k2R*R2−k−2R*R2−kr*R2*O+k−r*(OT−O)−kdr1*R2*I2+k−dr1*I2R2−λR2*R2
+
+equation(6)
+dO=−kr*R2*O+k−r*(OT−O)+kdr2*(OT−O)*I2−k−dr2*O*I2R2
+
+equation(7)
+dI=−2*kdr1*R2*I2+2*k−dr1*I2R2−2*kdr2*(OT−O)*I2+2*k−dr2*O*I2R2+kft*YIex+kt*(Iex−I)+2*λI2R2*I2R2+λYIex*YIex
+
+equation(8)
+dI2R2=kdr1*R2*I2−k−dr1*I2R2+kdr2*(OT−O)*I2−k−dr2*O*I2R2−λI2R2*I2R2
+
+equation(9)
+dMY=ks0MY*(OT−O)+ks1MY*O−λMY*MY
+
+equation(10)
+dY=ksY*MY+(kft+k−p)*YIex−kp*Y*Iex−λY*Y
+
+equation(11)
+dYIex=−(kft+k−p)*YIex+kp*Y*Iex−λYIex*YIex.
+Turn MathJax off
