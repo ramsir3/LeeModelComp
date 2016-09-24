@@ -24,10 +24,12 @@ int getNumParams() {
   return nP;
 }
 
+const char** getNames() {
+  return names;
+}
+
 
 Model getModel(double* initVals, double* params) {
-    sir.names = names;
-
     if (initVals) {
         sir.initValues = initVals;
     } else {

@@ -86,10 +86,11 @@ int getNumParams() {
   return nP;
 }
 
+const char** getNames() {
+  return names;
+}
 
 Model getModel(double* initVals, double* params) {
-    lacoperon.names = names;
-
     if (initVals) {
         lacoperon.initValues = initVals;
     } else {
