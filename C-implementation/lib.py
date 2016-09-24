@@ -67,6 +67,12 @@ class LacOperon(Model):
     def __init__(self):
         super(LacOperon, self).__init__("lacoperon")
 
+class SIR(Model):
+    """docstring for SIR"""
+    def __init__(self):
+        super(SIR, self).__init__("sir")
+
+
 class Sensitivities(Engine):
     """docstring for Sensitivties"""
     def __init__(self, model, defParams, defInitVals, dt, t1, charFunc):
