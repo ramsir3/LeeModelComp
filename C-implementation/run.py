@@ -1,9 +1,10 @@
-from lib import ModelEngine
+from lib import Model, Engine
 import plotly.offline as py
 import plotly.graph_objs as go
 
 ################# SETUP ##################
-m = ModelEngine("lacoperon")
+m = Model("lacoperon")
+e = Engine()
 
 ################ SET PARAMS #################
 dt =  0.0000125
@@ -22,7 +23,8 @@ initialVals = m.iArr(0, 0, 0, 1, 0, 0, 0, 0, 0)
 # initialVals = None
 
 ################# EXECUTE #####################
-data = m.go(params, initialVals, dt, t1)
+lo = m.getModel(params, initialVals)
+data = e.go(lo, dt, t1)
 # print("data", type(data))
 
 ############### EXTRACT ##################
@@ -32,7 +34,7 @@ names = m.getNames()
 time = [data.time[j] for j in range(0, numPoints, smplrt)]
 values = [[data.values[i][j] for j in range(0, numPoints, smplrt)] for i in range(numSpecies)]
 
-m.free(data, numSpecies)
+e.free(data, numSpecies)
 print time[-1]
 
 

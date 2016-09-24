@@ -31,15 +31,15 @@ const char** getNames() {
 
 Model getModel(double* initVals, double* params) {
     if (initVals) {
-        sir.initValues = initVals;
+        sir.initVals = initVals;
     } else {
-        sir.initValues = definitValues;
+        sir.initVals = defInitVals;
     }
 
     if (params) {
         sir.params = params;
     } else {
-        sir.params = defparams;
+        sir.params = defParams;
     }
 
     sir.funcs = funcs;

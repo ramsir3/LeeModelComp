@@ -3,7 +3,7 @@
 typedef double (*ode)(double[], double[]);
 
 typedef struct {
-    double* initValues;
+    double* initVals;
     double* params;
     ode* funcs;
     int numSpecies;

@@ -92,15 +92,15 @@ const char** getNames() {
 
 Model getModel(double* initVals, double* params) {
     if (initVals) {
-        lacoperon.initValues = initVals;
+        lacoperon.initVals = initVals;
     } else {
-        lacoperon.initValues = definitValues;
+        lacoperon.initVals = defInitVals;
     }
 
     if (params) {
         lacoperon.params = params;
     } else {
-        lacoperon.params = defparams;
+        lacoperon.params = defParams;
     }
 
     lacoperon.funcs = funcs;

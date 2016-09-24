@@ -11,9 +11,9 @@
 const int nS = 3;
 const int nP = 2;
 
-double defparams[2] = {0.5,  0.333};
+double defParams[2] = {0.5,  0.333};
 
-double definitValues[3] = {0.9, 0.1, 0};
+double defInitVals[3] = {0.9, 0.1, 0};
 
 const char* names[3] = {
     "Suceptible",

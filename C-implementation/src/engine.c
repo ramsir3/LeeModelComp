@@ -31,7 +31,7 @@ Results go(Model m, double dt, double t1) {
     int numPoints = (int)(t1 / dt);
     double** vals = init(m.numSpecies, numPoints);
     for (int i = 0; i < m.numSpecies; i++) {
-        vals[i][0] = m.initValues[i];
+        vals[i][0] = m.initVals[i];
     }
 
     for (int i = 1; i <= numPoints; i++) {
