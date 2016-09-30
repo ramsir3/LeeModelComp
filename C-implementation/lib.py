@@ -6,6 +6,7 @@ class ModelStruct(Structure):
     _fields_ = [
         ("initVals",POINTER(c_double)),
         ("params", POINTER(c_double)),
+        ("bolus", POINTER(c_double)),
         ("funcs", POINTER(ODE)),
         ("numSpecies", c_int),
         ("numParams", c_int)
@@ -32,6 +33,7 @@ class Model(object):
 
         self.pArr = c_double * self.nP
         self.iArr = c_double * self.nS
+        self.bArr = c_double * self.nS
 
         self.model.getModel.argtypes = [POINTER(c_double), POINTER(c_double)]
         self.model.getModel.restype = ModelStruct
@@ -42,8 +44,8 @@ class Model(object):
     def getNames(self):
         return self.model.getNames()
 
-    def getModel(self, params, initVals):
-        return self.model.getModel(initVals, params)
+    def getModel(self, params, initVals, bolus):
+        return self.model.getModel(initVals, params, bolus)
 
 class Engine(object):
     """docstring for Engine"""
@@ -59,50 +61,55 @@ class Engine(object):
         self.engine.freeTime(data.time)
         self.engine.freeVals(data.values, num)
 
-    def go(self, model, dt, t1):
-        return self.engine.go(model, c_double(dt), c_double(t1))
+    def go(self, model, dt, t1, bp):
+        return self.engine.go(model, c_double(dt), c_double(t1), c_int(bp))
 
-class LacOperon(Model):
-    """docstring for LacOperon"""
-    def __init__(self):
-        super(LacOperon, self).__init__("lacoperon")
-
-class SIR(Model):
-    """docstring for SIR"""
-    def __init__(self):
-        super(SIR, self).__init__("sir")
-
-
-class Sensitivities(Engine):
+class Sensitivity(Engine):
     """docstring for Sensitivties"""
-    def __init__(self, model, defParams, defInitVals, dt, t1, charFunc):
-        super(Sensitivities, self).__init__()
+    def __init__(self, model, defParams, defInitVals, bolus, dt, t1, bp, charFunc):
+        super(Sensitivity, self).__init__()
         self.model = model
         self.defParams = defParams
         self.defInitVals = defInitVals
+        self.bolus = bolus
         self.charFunc = charFunc
         self.dt = dt
         self.t1 = t1
-        self.nS = self.model.getSize()[1]
+        self.bp = bp
+        self.size = self.model.getSize()
         data = self.go(self.defParams, self.defInitVals)
         self.defChars = self.charFunc(data)
         self.free(data)
 
+    def getSize(self):
+        return self.size
+
     def free(self, data):
-        return super(Sensitivities, self).free(data, self.nS)
+        return super(Sensitivity, self).free(data, self.size[1])
 
     def go(self, params, initVals):
-        return super(Sensitivities, self).go(self.model.getModel(params, initVals), self.dt, self.t1)
+        return super(Sensitivity, self).go(self.model.getModel(params, initVals, self.bolus), self.dt, self.t1, self.bp)
 
-    def calcSensitivity(self, params, initVals):
+    def calcChars(self, params, initVals):
         if not params:
             params = self.defParams
         if not initVals:
             initVals = self.defInitVals
-
         data = self.go(params, initVals)
         chars = self.charFunc(data)
+        return (data, chars)
+
+    def findDelta(self, chars, defChars):
+        out = []
+        for i in xrange(self.size[1]):
+            out.append(([ai - bi if ai and bi else None for ai, bi in zip(chars[i][0], defVal[i][0])],
+                        [ai - bi if ai and bi else None for ai, bi in zip(chars[i][1], defVal[i][1])]))
+        print out
+        return out
+
+    def calc(self, params, initVals):
+        data, chars = self.calcChars(params, initVals)
         self.free(data)
-        deltaChars = [ai - bi for ai, bi in zip(chars, self.defChars)]
+        deltaChars = findDelta(chars, self.defChars)
         deltaParams =  [ai - bi for ai, bi in zip(params, self.defParams)]
         return (deltaParams, deltaChars)

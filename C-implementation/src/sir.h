@@ -15,6 +15,8 @@ double defParams[2] = {0.5,  0.333};
 
 double defInitVals[3] = {0.9, 0.1, 0};
 
+double defBolus[9] = {0, 0, 0};
+
 const char* names[3] = {
     "Suceptible",
     "Infected",

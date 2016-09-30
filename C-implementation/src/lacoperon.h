@@ -45,6 +45,8 @@ double defParams[26] = {1, 0.23, 15, 50, 0.001, 960, 2.4, 0.0000003, 12,
 
 double defInitVals[9] = {0, 0, 0, 1, 0, 0, 0, 0, 0};
 
+double defBolus[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 const char* names[9] = {
     "MR",
     "R",

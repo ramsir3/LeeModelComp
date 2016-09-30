@@ -90,7 +90,7 @@ const char** getNames() {
   return names;
 }
 
-Model getModel(double* initVals, double* params) {
+Model getModel(double* initVals, double* params, double* bolus) {
     if (initVals) {
         lacoperon.initVals = initVals;
     } else {
@@ -101,6 +101,12 @@ Model getModel(double* initVals, double* params) {
         lacoperon.params = params;
     } else {
         lacoperon.params = defParams;
+    }
+
+    if (bolus) {
+        lacoperon.bolus = bolus;
+    } else {
+        lacoperon.bolus = defBolus;
     }
 
     lacoperon.funcs = funcs;

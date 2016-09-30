@@ -28,8 +28,7 @@ const char** getNames() {
   return names;
 }
 
-
-Model getModel(double* initVals, double* params) {
+Model getModel(double* initVals, double* params, double* bolus) {
     if (initVals) {
         sir.initVals = initVals;
     } else {
@@ -40,6 +39,12 @@ Model getModel(double* initVals, double* params) {
         sir.params = params;
     } else {
         sir.params = defParams;
+    }
+
+    if (bolus) {
+        sir.bolus = bolus;
+    } else {
+        sir.bolus = defBolus;
     }
 
     sir.funcs = funcs;

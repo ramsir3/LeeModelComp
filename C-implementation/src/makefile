@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall
 DEPSIR = all.h sir.h
-SRCSIR = engine.c sir.c model.c
+SRCSIR = engine.c sir.c run.c
 OBJSIR = $(SRCSIR:%.c=%.o)
 
 default: sir

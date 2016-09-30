@@ -27,7 +27,14 @@ double* getLast(double** vals, int numSpecies, int idx) {
     return out;
 }
 
-Results go(Model m, double dt, double t1) {
+double* preturb(double* vals, double* bolus, int numSpecies) {
+  for (int i = 0; i < numSpecies; i++) {
+      vals[i] += bolus[i];
+  }
+  return vals;
+}
+
+Results go(Model m, double dt, double t1, int bp) {
     int numPoints = (int)(t1 / dt);
     double** vals = init(m.numSpecies, numPoints);
     for (int i = 0; i < m.numSpecies; i++) {
@@ -36,9 +43,13 @@ Results go(Model m, double dt, double t1) {
 
     for (int i = 1; i <= numPoints; i++) {
         double* last = getLast(vals, m.numSpecies, i);
+        if (i == bp) {
+            last = preturb(last, m.bolus, m.numSpecies);
+        }
         for (int j = 0; j < m.numSpecies; j++) {
             vals[j][i] = last[j] + ((*m.funcs[j])(m.params, last) * dt);
         }
+
         free(last);
     }
 
@@ -50,7 +61,7 @@ Results go(Model m, double dt, double t1) {
     }
 
     Results out;
-    out.values = vals;
+    out.vals = vals;
     out.time = time;
     out.size = numPoints;
     return out;

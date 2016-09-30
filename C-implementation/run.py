@@ -23,16 +23,16 @@ initialVals = m.iArr(0, 0, 0, 1, 0, 0, 0, 0, 0)
 # initialVals = None
 
 ################# EXECUTE #####################
-lo = m.getModel(params, initialVals)
-data = e.go(lo, dt, t1)
+lo = m.getModel(params, initialVals, None)
+data = e.go(lo, dt, t1, -1)
 # print("data", type(data))
 
 ############### EXTRACT ##################
 numSpecies = m.getSize()[1]
 numPoints = data.size
 names = m.getNames()
-time = [data.time[j] for j in range(0, numPoints, smplrt)]
-values = [[data.values[i][j] for j in range(0, numPoints, smplrt)] for i in range(numSpecies)]
+time = [data.time[j] for j in xrange(0, numPoints, smplrt)]
+values = [[data.values[i][j] for j in xrange(0, numPoints, smplrt)] for i in xrange(numSpecies)]
 
 e.free(data, numSpecies)
 print time[-1]
@@ -40,7 +40,7 @@ print time[-1]
 
 ################ PLOT ###################
 traces = []
-r = range(numSpecies)
+r = xrange(numSpecies)
 # r = [0,1,2,3,5,6,7,8]
 for i in r:
     traces.append(
