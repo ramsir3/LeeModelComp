@@ -1,18 +1,15 @@
-#include <stdio.h>
 #include "all.h"
 
-extern Model sir;
 double t1 = 20;
-double dt = 0.5;
+double dt = 0.0000125;
 
 int main(int argc, char const *argv[]) {
-
-    Results r = go(sir, dt, t1, -1);
-    for (int i = 0; i < r.size; i++) {
-        printf("%s\n", "test");
-        double* one = r.vals[0];
-        printf("%s\n", "test");
-        printf("%f\n", one[0]);
-    }
+    void* null = 0;
+    Model lacoperon = getModel(null, null, null);
+    double* r = calcSS(lacoperon, dt);
+    // for (int i = 0; i < 9; i++) {
+    //     printf("%f\n", r[i]);
+    // }
+    free(r);
     return 0;
 }

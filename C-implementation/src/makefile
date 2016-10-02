@@ -1,14 +1,14 @@
 CC=gcc
 CFLAGS=-g -Wall
-DEPSIR = all.h sir.h
-SRCSIR = engine.c sir.c run.c
+DEPSIR = all.h lacoperon.h
+SRCSIR = engine.c lacoperon.c run.c
 OBJSIR = $(SRCSIR:%.c=%.o)
 
 default: sir
 
 sir: $(OBJSIR)
-	@echo "[LINK] Linking sirmodel"
-	@gcc -o sirmodel $^ $(LFLAGS)
+	@echo "[LINK] Linking lacmodel"
+	@gcc -o lacmodel $^ $(LFLAGS)
 
 %.o : %.c
 	@echo "[COMPILE] Compiling $@"

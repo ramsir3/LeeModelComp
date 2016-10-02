@@ -13,21 +13,23 @@ YIex = 8
 
 def lacOpCharFunc(data):
     partial = 0.5
-    vals = data.values
+    vals = data.vals
     time = data.time
     size = data.size
 
+    mx = lambda p,n: p > 0 and n < 0
+    mn = lambda p,n: p < 0 and n > 0
+
     out = []
     for x in xrange(9):
-        out.append(package(vals[x], time, find2HalfsPeak(vals[x], size, partial)))
+        if x in [1,2]:
+            out.append(package(vals[x], time, find2HalfsPeak(vals[x], size, mn, partial)))
+        else:
+            out.append(package(vals[x], time, find2HalfsPeak(vals[x], size, mx, partial)))
     return out
 
 class LacOperon(Model):
     """docstring for LacOperon"""
     def __init__(self):
         super(LacOperon, self).__init__("lacoperon")
-
-class LacOperonSensitivity(Sensitivity):
-    """docstring for Sensitivties"""
-    def __init__(self, defParams, defInitVals, bolus, dt, t1, bp):
-        super(LacOpSensitivities, self).__init__(LacOperon(), defParams, defInitVals, bolus, dt, t1, bp, lacOpCharFunc)
+        self.charFunc = lacOpCharFunc

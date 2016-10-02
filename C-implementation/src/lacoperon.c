@@ -102,6 +102,9 @@ Model getModel(double* initVals, double* params, double* bolus) {
     } else {
         lacoperon.params = defParams;
     }
+    // for (int x = 0; x < nP; x++) {
+    //     printf("%s%f\n","c getModel params: ", lacoperon.params[x]);
+    // }
 
     if (bolus) {
         lacoperon.bolus = bolus;
@@ -111,6 +114,7 @@ Model getModel(double* initVals, double* params, double* bolus) {
 
     lacoperon.funcs = funcs;
     lacoperon.numSpecies = nS;
+    lacoperon.numParams = nP;
 
     return lacoperon;
 }

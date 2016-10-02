@@ -32,7 +32,7 @@ numSpecies = m.getSize()[1]
 numPoints = data.size
 names = m.getNames()
 time = [data.time[j] for j in xrange(0, numPoints, smplrt)]
-values = [[data.values[i][j] for j in xrange(0, numPoints, smplrt)] for i in xrange(numSpecies)]
+vals = [[data.vals[i][j] for j in xrange(0, numPoints, smplrt)] for i in xrange(numSpecies)]
 
 e.free(data, numSpecies)
 print time[-1]
@@ -46,7 +46,7 @@ for i in r:
     traces.append(
         go.Scatter(
             x=time,
-            y=values[i],
+            y=vals[i],
             name=names[i]
             )
         )

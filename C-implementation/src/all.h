@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef double (*ode)(double[], double[]);
 
@@ -23,3 +24,5 @@ Results go(Model, double, double, int);
 int getNumSpecies();
 int getNumParams();
 double* preturb(double*, double*, int);
+double* calcSS(Model, double);
+Model getModel(double*, double*, double*);

@@ -7,8 +7,11 @@ def extrema(data, size, cross):
     for i in xrange(2, size):
         dt = data[i] - data[i-1]
         # print(dt)
-        if dt != 0 and pre_dt != 0:
-            if cross(pre_dt, dt):
+        zero = lambda x: (x <= 0.000000000000001 and x >= -0.000000000000001);
+        if not zero(dt) and not zero(pre_dt):
+            isPeak = cross(pre_dt, dt)
+            if isPeak:
+                print(isPeak, pre_dt, dt)
                 return i
         pre_dt = dt
     return None
@@ -35,18 +38,15 @@ def find(data, ind1, ind2, partial):
             return i
     return None
 
-def find2HalfsPeak(data, size, partial):
-    cross = lambda x,y: x < 0 and y > 0
+def find2HalfsPeak(data, size, cross, partial):
     ind = extrema(data, size, cross)
-    if not ind:
-        cross = lambda x,y: x > 0 and y < 0
-        ind = extrema(data, size, cross)
+    print(ind)
     if ind:
         val = (data[ind]+data[0])*partial
-        print(val)
+        # print(val)
         one = find(data, ind, 0, partial)
         two = find(data, ind, size, partial)
-        print(ind, one, two)
+        # print(ind, one, two)
         return (ind, one, two)
     return (None, None, None)
 
