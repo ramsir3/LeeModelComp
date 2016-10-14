@@ -20,15 +20,15 @@ def plot(data, chars, names, smplrt, filename, r):
                 name=names[i]
                 )
             )
-
-    for i in r:
-        traces.append(
-            go.Scatter(
-                x=chars[i][1],
-                y=chars[i][0],
-                mode = 'markers',
-                name=names[i] + ' chars'
+    if chars:
+        for i in r:
+            traces.append(
+                go.Scatter(
+                    x=chars[i][1],
+                    y=chars[i][0],
+                    mode = 'markers',
+                    name=names[i] + ' chars'
+                    )
                 )
-            )
 
     py.plot(traces, filename='results/'+filename+'.html', auto_open=False)

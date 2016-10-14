@@ -94,6 +94,7 @@ class Engine(object):
         return self.engine.calcSS(model, c_double(dt))
 
     def go(self, model, dt, t1, bp):
+        print("entering c land")
         return self.engine.go(model, c_double(dt), c_double(t1), c_int(bp))
 
 class Sensitivity(Engine):
