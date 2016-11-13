@@ -23,7 +23,7 @@ class Model(object):
     """docstring for Model"""
     def __init__(self, mstring):
         super(Model, self).__init__()
-        self.model = CDLL("./lib/" + mstring + ".dll") #the model dll file
+        self.model = CDLL("./lib/" + mstring + ".so") #the model dll file
 
         self.model.getNumSpecies.restype = c_int
         self.model.getNumParams.restype = c_int
