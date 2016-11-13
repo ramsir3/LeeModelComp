@@ -121,14 +121,15 @@ class Sensitivity(Engine):
 
     def calcChars(self, model):
         data = self.go(model)
-        chars = self.charFunc(data)
+        print("calcing chars")
+        chars = self.charFunc(data, self.bp)
         return (data, chars)
 
     def deltaChars(self, chars, defChars):
         deltaChars = []
         for i in xrange(len(chars)):
-            deltaChars.append(([ai - bi if ai and bi else None for ai, bi in zip(chars[i][0], defChars[i][0])],
-                               [ai - bi if ai and bi else None for ai, bi in zip(chars[i][1], defChars[i][1])]))
+            deltaChars.append(([(ai - bi)/bi if ai and bi else None for ai, bi in zip(chars[i][0], defChars[i][0])],
+                               [(ai - bi)/bi if ai and bi else None for ai, bi in zip(chars[i][1], defChars[i][1])]))
         return deltaChars
 
     def deltaParams(self, params, defParams):

@@ -66,6 +66,9 @@ double* calcSS(Model m, double dt) {
         // }
         last = vals;
         i++;
+        if (i >= 6000000000) {
+            done = 1;
+        }
     } while (!done);
     free(dVal);
     free(doneArr);
